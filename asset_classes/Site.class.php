@@ -8,6 +8,7 @@
 class Site extends ScheduledPublishing
 {
 	const DEBUG    = false;
+	const DUMP     = false;
 	const TYPE     = T::SITE;
 	const NEVER    = T::NEVER;
 	const ONE      = T::ONE;
@@ -125,9 +126,8 @@ class Site extends ScheduledPublishing
 			}
 		}
 		
-		echo S_PRE;
-		var_dump( $site );
-		echo E_PRE;
+		if( self::DEBUG && self::DUMP ) { echo "S::L129 " . S_PRE;
+			var_dump( $site ); echo E_PRE; }
 		
 		$asset                                    = new stdClass();
 		$asset->{ $p = $this->getPropertyName() } = $site;
@@ -140,7 +140,7 @@ class Site extends ScheduledPublishing
 			throw new EditingFailureException( 
 				"Failed to edit the asset. " . $service->getMessage() );
 		}
-		return $this;
+		return $this->reloadProperty();
 	}
 	
 	public function getAssetTree()
@@ -404,11 +404,18 @@ class Site extends ScheduledPublishing
 		return false;
 	}
 
-	public function publish()
+	public function publish( Destination $destination=NULL )
 	{
+		if( $destination != NULL )
+		{
+			$destination_std           = new stdClass();
+			$destination_std->id       = $destination->getId();
+			$destination_std->type     = $destination->getType();
+		}
+		
 		$service = $this->getService();
 		$service->publish( 
-			$service->createId( self::TYPE, $this->getProperty()->id ) );
+			$service->createId( self::TYPE, $this->getProperty()->id ), $destination_std );
 		return $this;
 	}
 	

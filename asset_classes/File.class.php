@@ -50,13 +50,20 @@ class File extends Linkable
 		return $this->getProperty()->text;
 	}
 	
-	public function publish()
+	public function publish( Destination $destination=NULL )
 	{
+		if( $destination != NULL )
+		{
+			$destination_std           = new stdClass();
+			$destination_std->id       = $destination->getId();
+			$destination_std->type     = $destination->getType();
+		}
+		
 		if( $this->getProperty()->shouldBePublished )
 		{
 			$service = $this->getService();
 			$service->publish( 
-				$service->createId( $this->getType(), $this->getId() ) );
+				$service->createId( $this->getType(), $this->getId() ), $destination_std );
 		}
 		return $this;
 	}

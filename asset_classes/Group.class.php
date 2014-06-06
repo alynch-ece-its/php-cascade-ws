@@ -50,7 +50,7 @@ class Group extends Asset
 			throw new EditingFailureException( 
 				"Failed to edit the asset. " . $service->getMessage() );
 		}
-		return $this;
+		return $this->reloadProperty();
 	}
 	
 	public function getCssClasses()

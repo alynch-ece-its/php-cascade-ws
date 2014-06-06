@@ -323,7 +323,7 @@ class Message
 		return $this->with_issues;
 	}
 	
-	public function republishFailedJobs( Cascade $cascade )
+	public function republishFailedJobs( Cascade $cascade, Destination $destination )
 	{
 		echo $this->type . BR;
 		echo $this->num_jobs_with_errors . BR;
@@ -341,7 +341,7 @@ class Message
 					// ignore destinations
 					if( $site != "" && $path != "" )
 					{
-						$cascade->getAsset( Page::TYPE, $path, $site )->publish();
+						$cascade->getAsset( Page::TYPE, $path, $site )->publish( $destination );
 					}
 				}
 				catch( Exception $e )

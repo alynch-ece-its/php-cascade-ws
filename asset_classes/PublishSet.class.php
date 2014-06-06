@@ -152,7 +152,7 @@ class PublishSet extends ScheduledPublishing
 			throw new EditingFailureException( 
 				M::EDIT_ASSET_FAILURE . $service->getMessage() );
 		}
-		return $this;
+		return $this->reloadProperty();
 	}
 
 	public function getFilePaths()
@@ -197,11 +197,18 @@ class PublishSet extends ScheduledPublishing
 		return $page_paths;
 	}
 	
-	public function publish()
+	public function publish( Destination $destination=NULL )
 	{
+		if( $destination != NULL )
+		{
+			$destination_std           = new stdClass();
+			$destination_std->id       = $destination->getId();
+			$destination_std->type     = $destination->getType();
+		}
+		
 		$service = $this->getService();
 		$service->publish( 
-			$service->createId( self::TYPE, $this->getProperty()->id ) );
+			$service->createId( self::TYPE, $this->getProperty()->id ), $destination_std );
 		return $this;
 	}
 	

@@ -74,7 +74,7 @@ abstract class Linkable extends ContainedAsset
 			throw new EditingFailureException( 
 				"Failed to edit the asset. " . $service->getMessage() );
 		}
-		return $this;
+		return $this->reloadProperty();
 	}
 		
 	public function getCreatedBy()
@@ -161,7 +161,7 @@ abstract class Linkable extends ContainedAsset
 	
 		$this->getProperty()->metadataSetId   = $m->getId();
 		$this->getProperty()->metadataSetPath = $m->getPath();
-		$this->edit()->reloadProperty();
+		$this->edit();
 		$this->processMetadata();
 
 		return $this;

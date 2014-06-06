@@ -227,13 +227,20 @@ class Folder extends Container
 		return $this->metadata->hasDynamicField( $name );
 	}
 	
-	public function publish()
+	public function publish( Destination $destination=NULL )
 	{
+		if( $destination != NULL )
+		{
+			$destination_std           = new stdClass();
+			$destination_std->id       = $destination->getId();
+			$destination_std->type     = $destination->getType();
+		}
+		
 		if( $this->getProperty()->shouldBePublished )
 		{
 			$service = $this->getService();
 			$service->publish( 
-				$service->createId( self::TYPE, $this->getProperty()->id ) );
+				$service->createId( self::TYPE, $this->getProperty()->id ), $destination_std );
 		}
 		return $this;
 	}
@@ -247,7 +254,7 @@ class Folder extends Container
 	
 		$this->getProperty()->metadataSetId   = $m->getId();
 		$this->getProperty()->metadataSetPath = $m->getPath();
-		$this->edit()->reloadProperty();
+		$this->edit();
 		$this->processMetadata();
 		
 		return $this;

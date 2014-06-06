@@ -108,7 +108,7 @@ class AssetFactory extends ContainedAsset
 			throw new EditingFailureException( 
 				M::EDIT_ASSET_FAILURE . $service->getMessage() );
 		}
-		return $this;
+		return $this->reloadProperty();
 	}
 	
 	public function getAllowSubfolderPlacement()
@@ -336,7 +336,6 @@ class AssetFactory extends ContainedAsset
 			
 		$this->getProperty()->placementFolderId   = $folder->getId();
 		$this->getProperty()->placementFolderPath = $folder->getPath();
-		//$this->edit()->reloadProperty();
 		
 		return $this;
 	}

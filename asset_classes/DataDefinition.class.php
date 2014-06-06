@@ -79,7 +79,7 @@ class DataDefinition extends ContainedAsset
 			throw new EditingFailureException( 
 				M::EDIT_ASSET_FAILURE . $service->getMessage() );
 		}
-		return $this;
+		return $this->reloadProperty();
 	}
 
 	public function getField( $field_name )

@@ -1,4 +1,8 @@
-﻿6/5/2014
+﻿6/6/2014
+Added the edit method to Asset. Added a function call reloadProperty in all edit methods.
+Added destination to all publish methods. Fixed a bug in AssetOperationHandlerService related to publishing and unpublishing.
+
+6/5/2014
 Added getTemplate to PageConfiguration.
 Fixed a bug in Page::getPageLevelRegionBlockFormat, added Template::getPageRegionNames.
 

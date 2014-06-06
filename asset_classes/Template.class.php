@@ -57,7 +57,7 @@ class Template extends ContainedAsset
 			throw new EditingFailureException( 
 				"Failed to edit the asset. " . $service->getMessage() );
 		}
-		return $this;
+		return $this->reloadProperty();
 	}
 	
 	public function getCreatedBy()

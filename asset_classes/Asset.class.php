@@ -65,6 +65,11 @@ abstract class Asset
 		return $this;
 	}
 	
+	public function edit()
+	{
+		return $this->reloadProperty();
+	}
+	
     public function getId()
     {
     	return $this->id;
@@ -154,16 +159,23 @@ abstract class Asset
     	return $this->type;
     }
     
-    public function publishSubscribers()
+    public function publishSubscribers( Destination $destination=NULL )
 	{
 		$subscriber_ids = $this->getSubscribers();
+		
+		if( $destination != NULL )
+		{
+			$destination_std           = new stdClass();
+			$destination_std->id       = $destination->getId();
+			$destination_std->type     = $destination->getType();
+		}
 		
 		if( $subscriber_ids != NULL )
 		{
 			foreach( $subscriber_ids as $subscriber_id )
 			{
-				if( self::DEBUG ) { echo "A::L165 Publishing " . $subscriber_id->getId() . BR; }
-				$this->getService()->publish( $subscriber_id->toStdClass() );
+				if( self::DEBUG ) { echo "A::L177 Publishing " . $subscriber_id->getId() . BR; }
+				$this->getService()->publish( $subscriber_id->toStdClass(), $destination_std );
 			}
 		}
 		return $this;

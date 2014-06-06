@@ -22,7 +22,7 @@ abstract class Format extends ContainedAsset
 			throw new EditingFailureException( 
 				M::EDIT_ASSET_FAILURE . $service->getMessage() );
 		}
-		return $this;
+		return $this->reloadProperty();
 	}
 	
 	public function getCreatedBy()

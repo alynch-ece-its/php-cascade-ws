@@ -4,6 +4,7 @@
   * Copyright (c) 2014 Wing Ming Chan <chanw@upstate.edu>
   * MIT Licensed
   * Modification history:
+  *  6/6/2014 Fixed a bug in publish and unpublish.
   *  4/17/2014 Modified the signature of retrieve so that the property can be empty.
   *  3/24/2014 Modified createId to throw exceptions and added isHexString.
   *  2/26/2014 Removed workflowConfiguration from property, and twitter feed block from property and type.
@@ -658,22 +659,23 @@ class AssetOperationHandlerService
     * @param $identifier the identifier of the object to be published
     * @param $destination the destination(s) where the asset should be published
     */
-    public function publish( $identifier, $destination = NULL ) 
+    public function publish( $identifier, $destination=NULL ) 
     {
         $publish_param = new stdClass();
         $publish_info  = new stdClass();
         $publish_param->authentication = $this->auth;
         $publish_info->identifier      = $identifier;
-        $publish_info->unpublish       = false;
-        $publish_param->publishInformation = $publish_info;
         
         if( $destination != NULL )
         {
             if( is_array( $destination ) )
-                $publish_param->destinations = $destination;
+                $publish_info->destinations = $destination;
             else
-                $publish_param->destinations = array( $destination );
+                $publish_info->destinations = array( $destination );
         }
+        
+        $publish_info->unpublish           = false;
+        $publish_param->publishInformation = $publish_info;
         
         $this->reply = $this->soapClient->publish( $publish_param );
         $this->storeResults( $this->reply->publishReturn );
@@ -824,22 +826,23 @@ class AssetOperationHandlerService
     * Function to un-publish the asset with the given identifier
     * @param $identifier the identifier of the object to be un-published
     */
-    public function unpublish( $identifier ) 
+    public function unpublish( $identifier, $destination=NULL ) 
     {
         $publish_param = new stdClass();
         $publish_info  = new stdClass();
         $publish_param->authentication = $this->auth;
         $publish_info->identifier      = $identifier;
-        $publish_info->unpublish       = true;
-        $publish_param->publishInformation = $publish_info;
         
         if( $destination != NULL )
         {
             if( is_array( $destination ) )
-                $publish_param->destinations = $destination;
+                $publish_info->destinations = $destination;
             else
-                $publish_param->destinations = array( $destination );
+                $publish_info->destinations = array( $destination );
         }
+        
+        $publish_info->unpublish           = true;
+        $publish_param->publishInformation = $publish_info;
         
         $this->reply = $this->soapClient->publish( $publish_param );
         $this->storeResults( $this->reply->publishReturn );

@@ -75,7 +75,7 @@ abstract class Block extends ContainedAsset
 			throw new EditingFailureException( 
 				M::EDIT_ASSET_FAILURE . $service->getMessage() );
 		}
-		return $this;
+		return $this->reloadProperty();
 	}
 	
 	public function getCreatedBy()
@@ -163,7 +163,7 @@ abstract class Block extends ContainedAsset
 	
 		$this->getProperty()->metadataSetId   = $m->getId();
 		$this->getProperty()->metadataSetPath = $m->getPath();
-		$this->edit()->reloadProperty();
+		$this->edit();
 		$this->processMetadata();
 		
 		return $this;

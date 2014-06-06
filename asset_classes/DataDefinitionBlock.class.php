@@ -38,7 +38,7 @@ class DataDefinitionBlock extends Block
 		
 		//if( self::DEBUG ) { echo "DDB::L51 calling SD::appendSibling" . BR; }
 		$this->structured_data->appendSibling( $node_name );
-		$this->edit()->reloadProperty();
+		$this->edit();
 		return $this;
 	}
 	
@@ -142,7 +142,7 @@ class DataDefinitionBlock extends Block
 			throw new EditingFailureException( 
 				M::EDIT_ASSET_FAILURE . $service->getMessage() );
 		}
-		return $this;
+		return $this->reloadProperty();
 	}
 	
 	public function getAssetNodeType( $identifier )
@@ -432,7 +432,7 @@ class DataDefinitionBlock extends Block
 		}
 		
 		$this->structured_data->removeLastSibling( $node_name );
-		$this->edit()->reloadProperty();
+		$this->edit();
 		return $this;
 	}
 	
@@ -538,7 +538,6 @@ class DataDefinitionBlock extends Block
 	{
 		$this->structured_data = $structured_data;
 		$this->edit();
-		$this->reloadProperty();
 		$this->processStructuredData();
 		return $this;
 	}
@@ -586,7 +585,7 @@ class DataDefinitionBlock extends Block
 		}
 		
 		$this->structured_data->swapData( $node_name1, $node_name2 );
-		$this->edit()->reloadProperty()->processStructuredData();
+		$this->edit()->processStructuredData();
 		
 		return $this;
 	}

@@ -192,7 +192,7 @@ class Page extends Linkable
 			throw new EditingFailureException( 
 				M::EDIT_ASSET_FAILURE . $service->getMessage() );
 		}
-		return $this;
+		return $this->reloadProperty();
 	}
 	
 	public function getAssetNodeType( $identifier )
@@ -709,13 +709,20 @@ class Page extends Linkable
 		return $this->structured_data->isWYSIWYG( $identifier );
 	}
 	
-	public function publish()
+	public function publish( Destination $destination=NULL )
 	{
+		if( $destination != NULL )
+		{
+			$destination_std           = new stdClass();
+			$destination_std->id       = $destination->getId();
+			$destination_std->type     = $destination->getType();
+		}
+		
 		if( $this->getProperty()->shouldBePublished )
 		{
 			$service = $this->getService();
 			$service->publish( 
-				$service->createId( $this->getType(), $this->getId() ) );
+				$service->createId( $this->getType(), $this->getId() ), $destination_std );
 		}
 		return $this;
 	}
@@ -930,9 +937,8 @@ class Page extends Linkable
 				}
 			}
 			
-			$this->edit()->reloadProperty();
+			$this->edit();
 		}
-
 
 		$page  = $this->getProperty();
 		
@@ -1067,7 +1073,6 @@ class Page extends Linkable
 	{
 		$this->structured_data = $structured_data;
 		$this->edit();
-		$this->reloadProperty();
 		$this->processStructuredData();
 		return $this;
 	}
@@ -1115,7 +1120,7 @@ class Page extends Linkable
 		}
 		
 		$this->structured_data->swapData( $node_name1, $node_name2 );
-		$this->edit()->reloadProperty()->processStructuredData( $this->data_definition_id );
+		$this->edit()->processStructuredData( $this->data_definition_id );
 
 		return $this;
 	}
