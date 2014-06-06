@@ -1,0 +1,46 @@
+﻿6/5/2014
+Added getTemplate to PageConfiguration.
+Fixed a bug in Page::getPageLevelRegionBlockFormat, added Template::getPageRegionNames.
+
+6/4/2014
+Fixed the reference problem by moving the & from function calls to function declarations.
+Classes affected: AssetTree, Template, Message, StructuredDataNode, StructuredData, PageConfiguration.
+
+6/2/2014
+Added asset expiration arrays, and related methods to Message.class.php, MessageArrays.class.php, and Cascade.class.php.
+
+5/30/2014
+Added getDynamicFieldValues to Metadata.class.php, getFieldValue to DynamicField.class.php.
+
+5/23/2014
+Fixed a bug in AssetFactory.class.php.
+
+5/22/2014
+Fixed bugs in Cascade.class.php, Message.class.php, MessageArrays.class.php.
+Added republishFailedJob to Message.class.php.
+Added four methods in AssetFactory.class.php.
+
+5/21/2014
+Added Message.class.php and MessageArrays.class.php.
+Added message-related methods to Cascade.class.php.
+
+5/14/2014
+Added checkIn and checkOut to Cascade.class.php.
+Added search to Cascade.class.php.
+
+5/13/2014 
+Added createNInstancesForMultipleField to Page.class.php and replaced all string literals with constants.
+
+5/12/2014 
+Added getAudits to Cascade.class.php. Added Audit.class.php.
+Changed constructor of Child so that data in $c can be NULL, for Audit.
+
+05/07/2014
+Added constants to constants.php and global functions to global_functions.php to deal with orphans.
+
+05/06/2014
+Added StringUtility.class.php.
+Added author and copyright info to all files.
+
+05/05/2014
+Added a new method setPlacementFolder to AssetFactory.class.php.
