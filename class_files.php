@@ -1,7 +1,7 @@
 <?php 
 function __autoload( $classname )
 {
-	$root_path              = "/webfs/php_include/cascade_ws/";
+	$root_path              = "php-cascade-ws/";
 	$asset_class_folder     = "asset_classes/";
 	$helping_class_folder   = "property_classes/";
 	$exception_class_folder = "exception_classes/";

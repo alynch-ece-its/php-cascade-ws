@@ -1,10 +1,7 @@
 <?php
 try
 {
-    require_once('cascade_ws/auth_chanw.php');
-
-
-
+    require_once('php-cascade-ws/auth_user.php');
 }
 catch( Exception $e )
 {

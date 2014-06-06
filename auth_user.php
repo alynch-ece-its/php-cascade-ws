@@ -1,5 +1,5 @@
 <?php 
-require_once( 'cascade_ws/ws_lib.php' );
+require_once( 'ws_lib.php' );
 
 $wsdl = "http://localhost:8080/ws/services/AssetOperationService?wsdl";
 $auth           = new stdClass();

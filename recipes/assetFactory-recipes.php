@@ -17,7 +17,7 @@ $cascade->getAsset(
 /**  Setting Placement Folder For an Asset Factory In Every Site */
 try
 {
-    require_once('cascade_ws/auth_chanw.php');
+    require_once('php-cascade-ws/auth_user.php');
 
     $sites = $cascade->getSites();
 
