@@ -1,0 +1,12 @@
+## generic files to ignore
+*~
+*.lock
+.DS_Store
+Thumbs.db
+.svn
+.hg
+*.swp
+*.out
+.idea
+*#
+._*
